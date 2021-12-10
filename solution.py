@@ -51,11 +51,11 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
        # Fetch the ICMP header from the IP packet
 
        header = recPacket[20:28]
-       type, code, checksum, packID, seqNo = struct.unpack("!bbHHh", header)
-       if type == 0 and packID == ID:
-          bytesInDouble = struct.calcsize("!d")
-          timeSent = struct.unpack("!d", recPacket[28:28 + bytesInDouble])[0]
-          ttl = ord(struct.unpack("!c", recPacket[8:9])[0]  
+       pptype, code, checksum, packID, seqNo = struct.unpack("bbHHh", header)
+       if pptype == 0 and packID == ID:
+          bytesInDouble = struct.calcsize("d")
+          timeSent = struct.unpack("d", recPacket[28:28 + bytesInDouble])[0]
+          ttl = ord(struct.unpack("c", recPacket[8:9])[0]  
           rtt = timeReceived - timeSent
           return ((rtt * 1000), ttl)
 
