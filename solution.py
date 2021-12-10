@@ -119,7 +119,8 @@ def ping(host, timeout=1):
    packAvg = statistics.mean()
    packMax = float('-inf')
    stdev = statistics.stdev()
-   vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
+   count = 0
+  # vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
   # Send ping requests to a server separated by approximately one second
    for i in range(0,4):
        delay = doOnePing(dest, timeout)
