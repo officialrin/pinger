@@ -55,8 +55,9 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
        if type == 0 and packID == ID:
           bytesInDouble = struct.calcsize("d")
           timeSent = struct.unpack("d", recPacket[28:28 + bytesInDouble])[0]
+          ttl = struct.unpack("c", recPacket[8:9])[0]  
           rtt = timeReceived - timeSent
-          return (rtt * 1000)
+          return ((rtt * 1000), ttl)
 
        timeLeft = timeLeft - howLongInSelect
        if timeLeft <= 0:
