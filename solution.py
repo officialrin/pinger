@@ -119,11 +119,8 @@ def ping(host, timeout=1):
   # Send ping requests to a server separated by approximately one second
    for i in range(0,4):
        delay = doOnePing(dest, timeout)
-       if delay != "Request timed out.":
-            val.append(delay)
+       val.append(delay)
       # print(delay)
-       val = val + (delay[2])
-       count+=1
        time.sleep(1)  # one second
          
    if len(val) > 0:      
