@@ -1,4 +1,4 @@
-from socket import *
+rom socket import *
 import os
 import sys
 import struct
@@ -122,14 +122,14 @@ def ping(host, timeout=1):
        val.append(delay[0])
       # print(delay)
        time.sleep(1)  # one second
-   
-   # print(val)
+         
+   print(val)
    if len(val) > 0:      
        packet_min = min(val) * 1000
        packet_avg = sum(val) / len(val) * 1000
        packet_max = max(val) * 1000
        stdev_var =  list(val) * 1000
-       vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(statistics.stdev(packet_array), 2))]
+       vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(statistics.stdev(stdev_var), 2))]
    else:
         vars = ['0', '0.0', '0', '0.0']
    return vars
