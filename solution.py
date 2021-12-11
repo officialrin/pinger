@@ -58,7 +58,7 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
           timeSent = struct.unpack("d", recPacket[28:28 + bytesInDouble])[0]
           ttls = struct.unpack("c", recPacket[8:9])[0]  
           rtt = timeReceived - timeSent
-          return rtt
+          return (rtt, ttls)
 
        timeLeft = timeLeft - howLongInSelect
        if timeLeft <= 0:
@@ -122,7 +122,8 @@ def ping(host, timeout=1):
        val.append(delay[0])
       # print(delay)
        time.sleep(1)  # one second
-         
+   
+   # print(val)
    if len(val) > 0:      
        packet_min = min(val) * 1000
        packet_avg = sum(val) / len(val) * 1000
