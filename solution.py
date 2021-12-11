@@ -120,7 +120,7 @@ def ping(host, timeout=1):
    for i in range(0,4):
        delay = doOnePing(dest, timeout)
        if isinstance(delay, tuple):
-           val.append(delay)
+           val.append(delay[0])
       # print(delay)
        time.sleep(1)  # one second
          
