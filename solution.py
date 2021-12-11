@@ -56,9 +56,9 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
        if type == 0 and packID == ID:
           bytesInDouble = struct.calcsize("d")
           timeSent = struct.unpack("d", recPacket[28:28 + bytesInDouble])[0]
-          ttl = struct.unpack("c", recPacket[8:9])[0]  
+          ttls = struct.unpack("c", recPacket[8:9])[0]  
           rtt = timeReceived - timeSent
-          return (rtt, ttl)
+          return (rtt, ttls)
 
        timeLeft = timeLeft - howLongInSelect
        if timeLeft <= 0:
@@ -109,7 +109,7 @@ def doOnePing(destAddr, timeout):
 
 
 def ping(host, timeout=1):
-   # timeout=1 means: If one second goes by without a reply from the server,      # the client assumes that either the client's ping or the server's pong is lost
+  # timeout=1 means: If one second goes by without a reply from the server,      # the client assumes that either the client's ping or the server's pong is lost
    dest = gethostbyname(host)
   # print("Pinging " + dest + " using Python:")
   # print("")
@@ -122,13 +122,14 @@ def ping(host, timeout=1):
       # print(delay)
        time.sleep(1)  # one second
          
-   packet_min = min(ttl) * 1000
-   packet_avg = statistics.mean(ttl) * 1000
-   packet_max = max(ttl) * 1000
-   stdev_var =  statistics.stdev(ttl) * 1000
-         
-   vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
-
+   if len(ttl) > 0:      
+       packet_min = min(ttl) * 1000
+       packet_avg = statistics.mean(ttl) * 1000
+       packet_max = max(ttl) * 1000
+       stdev_var =  statistics.stdev(ttl) * 1000
+       vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
+   else:
+        vars = ['0', '0.0', '0', '0.0']
    return vars
 
 if __name__ == '__main__':
